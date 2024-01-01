@@ -10,3 +10,5 @@ export default {
   },
   tablesFilter: ["open-sat-app_*"],
 } satisfies Config;
+
+
