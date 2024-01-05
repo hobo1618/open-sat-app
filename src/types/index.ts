@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 
-
 namespace DB {
     export enum UploadType {
         IMAGE = "image",
@@ -17,6 +16,13 @@ namespace DB {
         filetype: string;
     }
 
+    export interface Block {
+        id: string;
+        ownerId: string;
+        modified: Date;
+    }
+    export type Blocks = string[];
+
     export enum Section {
         TEXT = "text",
         MATH = "math",
@@ -28,28 +34,91 @@ namespace DB {
     }
     export const sections = Object.values(Section);
 
-    /**
-    * A block saved to the database as a template for 
-    * a new block in a room
-    * */
-    export interface BlockTemplate {
+    export interface SectionData {
         id: string;
         ownerId: string;
-        name: string;
         modified: Date;
-        favorite: boolean;
+        type: Section;
     }
+    export type BlockSections = Map<string, string[]>
 
-    export interface MathBlockTemplate {
-        latex: string;
+    export interface TextSection {
+        text: string;
+        id: string;
+        lastUpdatedBy: string;
+        createdBy?: string;
+        parentId: string;
+        align?: "left" | "center" | "right";
+    }
+    export type TextSectionData = Map<string, TextSection>;
+
+    export interface ImageSection {
+        url: string;
+        id: string;
+        lastUpdatedBy: string;
+        createdBy?: string;
+        parentId: string;
+        align?: "left" | "center" | "right";
+    }
+    export type ImageSectionData = Map<string, ImageSection>;
+
+    export interface VideoSection {
+        url: string;
+        id: string;
+        lastUpdatedBy: string;
+        createdBy?: string;
+        parentId: string;
+        align?: "left" | "center" | "right";
+    }
+    export type VideoSectionData = Map<string, VideoSection>;
+
+    export interface MathSection {
         id: string;
         lastUpdatedBy: string;
         createdBy?: string;
         parentId: string;
         checkMath?: boolean;
         computeArithmetic?: boolean;
+    }
+    export type MathSectionData = Map<string, MathSection>;
+    export type MathSections = Map<string, string[]>;
+
+    export interface Mathfield {
+        latex: string;
         align?: "left" | "center" | "right";
     }
+    export type Mathfields = Map<string, string[]>;
+    export type MathfieldData = Map<string, Mathfield>;
+
+    export interface AudioSection {
+        url: string;
+        id: string;
+        lastUpdatedBy: string;
+        createdBy?: string;
+        parentId: string;
+        align?: "left" | "center" | "right";
+    }
+    export type AudioSectionData = Map<string, AudioSection>;
+
+    export interface TableSection {
+        data: string[][];
+        id: string;
+        lastUpdatedBy: string;
+        createdBy?: string;
+        parentId: string;
+        align?: "left" | "center" | "right";
+    }
+    export type TableSectionData = Map<string, TableSection>;
+
+    export interface MultipleChoiceSection {
+        choices: string[];
+        id: string;
+        lastUpdatedBy: string;
+        createdBy?: string;
+        parentId: string;
+        align?: "left" | "center" | "right";
+    }
+    export type MultipleChoiceSectionData = Map<string, MultipleChoiceSection>;
 }
 
 namespace Constants {
